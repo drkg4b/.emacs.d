@@ -33,7 +33,13 @@
   ;;
   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
   (load-theme 'zenburn t)
+
+  ;; Smart parenteses matching
+  (smartparens-global-mode t)
   )
+
+;; Don't show startup screen
+(setq inhibit-startup-screen t)
 
 ;; flx-ido completion system, recommended by Projectile
 (require 'flx-ido)
@@ -100,7 +106,6 @@
       kept-new-versions 5
       kept-old-versions 2)
 
-
 ;; Expand Region
 (require 'expand-region)
 (global-set-key (kbd "M-2") 'er/expand-region)
@@ -119,6 +124,26 @@
 ;; Delete trailing spaces before saving:
 (add-hook 'before-save-hook
           'delete-trailing-whitespace)
+
+;; Auto complete
+(ac-config-default)
+
+;;
+;;      AutoFill
+;;
+(setq-default auto-fill-function 'do-auto-fill)
+(setq-default fill-column 80)
+;(setq comment-auto-fill-only-comments t)
+
+;;
+;;      Astyle
+;;
+(defun astyle-this-buffer (pmin pmax)
+  (interactive "r")
+  (shell-command-on-region pmin pmax
+                           "astyle" ;; add options here...
+                           (current-buffer) t
+                           (get-buffer-create "*Astyle Errors*") t))
 
 ;; ;required by ac-math
 ;; (require 'auto-complete-config)
@@ -267,15 +292,6 @@
 
 ;; ;; (autopair-global-mode)
 
-;; ;
-;; ;      Astyle
-;; ;
-;; (defun astyle-this-buffer (pmin pmax)
-;;   (interactive "r")
-;;   (shell-command-on-region pmin pmax
-;;                            "astyle" ;; add options here...
-;;                            (current-buffer) t
-;;                            (get-buffer-create "*Astyle Errors*") t))
 
 ;; ;
 ;; ;      ORG Mode
