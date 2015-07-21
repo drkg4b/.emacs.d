@@ -86,13 +86,26 @@
 (load-user-file "skeletons-definition.el")
 (load-user-file "globals.el")
 (load-user-file "flycheck-settings.el")
+(load-user-file "latex-settings.el")
 
-(setq tramp-default-method "ssh")            ;activate ssh in emacs
-(show-paren-mode 1)                          ;match parenteses
-(tool-bar-mode -1)                           ;hide tool bar
-(scroll-bar-mode -1)                         ;hide scroll bar
-(setq column-number-mode t)                  ;display column number
-(setq printer-name "hpa4")                   ;set default printer name
+;; Activate ssh in emacs
+(setq tramp-default-method "ssh")
+
+;; Match parenteses
+(show-paren-mode 1)
+
+;; Hide tool bar
+(tool-bar-mode -1)
+
+;; Hide scroll bar
+(scroll-bar-mode -1)
+
+;; Display column number
+(setq column-number-mode t)
+
+;; Set default printer name
+(setq printer-name "hpa4")
+
 (setq-default left-fringe-width 10)
 (setq-default right-fringe-width 0)
 
