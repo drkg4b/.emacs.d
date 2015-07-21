@@ -167,3 +167,6 @@
      (smtpmail-smtp-server "out.alice.it")
      (smtpmail-stream-type nil)
      (smtpmail-smtp-service 587))))
+
+(provide 'mu4e-settings.el)
+;;; mu4e-settings.el ends here
