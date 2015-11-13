@@ -21,5 +21,22 @@
 (setq TeX-view-program-list
       '(("PDF Viewer" "okular %o")))
 
+;; Require flyspell for latex mode
+(add-hook 'LaTeX-mode-hook 'flyspell-mode)
+
+;; Turn on RefTeX for AUCTeX,
+;; http://www.gnu.org/s/auctex/manual/reftex/reftex_5.html
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+
+;; Make RefTeX interact with AUCTeX,
+;; http://www.gnu.org/s/auctex/manual/reftex/AUCTeX_002dRefTeX-Interface.html
+(setq reftex-plug-into-AUCTeX t)
+
+;; Split windows vertically
+(setq reftex-toc-split-windows-horizontally t)
+
+;; Open buffer for files belonging to a multifile doc
+(setq reftex-keep-temporary-buffers t)
+
 (provide 'latex-settings.el)
 ;;; latex-settings.el ends here
