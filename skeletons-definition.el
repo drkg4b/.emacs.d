@@ -17,7 +17,8 @@
   "\\makeatletter\n"
   "\\setbeamercovered{transparent}\n\n"
   "\\title[MonoJet Meeting]{" _ "}\n\n\n"
-  "\\author[Gabriele~Bertoli]{G.~Bertoli\\inst{1}}\n\n"
+  "\\author[G.~Bertoli]{\textbf{G.~Bertoli\inst{1}} \and C.~Clement\inst{1} \and
+  O.~Lundberg\inst{1} \and V.~Rossetti\inst{1}}\n\n"
   "\\institute[Stockholm University]{\\inst{1} Stockholm University \\\\ Physics Department}\n\n"
   "\\date[12 Jan 2015]{12 January 2015}\n\n"
   "\\pgfdeclareimage[height=1.0cm]{stockholm-logo}{/home/drkg4b/documenti/PhD/presentations/logo}\n"
