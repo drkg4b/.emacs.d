@@ -20,17 +20,19 @@
 
 ;; General Settings
 (setq
- mail-user-agent 'mu4e-user-agent      ;mu4e as default user agent
- mu4e-view-show-images t               ;enable inline images
- mu4e-compose-dont-reply-to-self t     ;don't reply to me when replying to a mail
- mu4e-get-mail-command "offlineimap"   ;fetch mail
- mu4e-update-interval 300              ;update every 5 minutes
- mu4e-headers-skip-duplicates t        ;skip duplicate email, great for gmail
+ mail-user-agent 'mu4e-user-agent       ;mu4e as default user agent
+ mu4e-view-show-images t                ;enable inline images
+ mu4e-compose-dont-reply-to-self t      ;don't reply to me when replying to a mail
+ mu4e-get-mail-command "offlineimap -o" ;fetch mail
+ mu4e-update-interval 300               ;update every 5 minutes
+ mu4e-headers-skip-duplicates t         ;skip duplicate email, great for gmail
  ;mu4e-compose-complete-only-personal t ;only personal messages get in the address book
- message-kill-buffer-on-exit t         ;don't keep message buffers around
- smtpmail-queue-mail nil               ;don't queue messages before sending
+ message-kill-buffer-on-exit t          ;don't keep message buffers around
+ smtpmail-queue-mail nil                ;don't queue messages before sending
  mu4e-html2text-command "html2text -utf8 -width 72" ;use html2text program
  mu4e-msg2pdf "/usr/bin/msg2pdf"       ;specify the path for msg2pdf
+ mu4e-headers-include-related t ; This enabled the thread like viewing of email similar to gmail's UI.
+ mu4e-attachment-dir "~/Downloads/attachments"
  )
 
 ;; Display a New Mail message in the kdialog on new mails
@@ -40,15 +42,10 @@
 
 ;; Add bookmark
 (add-to-list 'mu4e-bookmarks
-	     '("flag:flagged"       "Flagged Messages"     ?f))
+	     '("flag:flagged" "Flagged Messages" ?f))
 
-;; Maildir locations
-(setq
- mu4e-maildir "/home/drkg4b/Maildir"
- mu4e-drafts-folder "/Gmail/[Gmail].Drafts"
- mu4e-sent-folder   "/Gmail/[Gmail].Sent Mail"
- mu4e-trash-folder  "/Gmail/[Gmail].Trash"
-)
+;; Maildir location
+(setq mu4e-maildir "/home/drkg4b/Maildir")
 
 ;; add some composing hooks
 (add-hook 'mu4e-compose-mode-hook
@@ -114,59 +111,68 @@
    user-mail-address "gab.bertoli@gmail.com"
    message-signature-file "/home/drkg4b/.signature")
 
-(require 'smtpmail)
+;; Use msmtp to send mails
+(setq message-send-mail-function 'message-send-mail-with-sendmail
+	sendmail-program "/usr/bin/msmtp"
+	user-full-name "Gabriele Bertoli")
 
-(setq
- message-send-mail-function 'smtpmail-send-it
- smtpmail-stream-type 'starttls
- smtpmail-default-smtp-server "smtp.gmail.com"
- smtpmail-smtp-server "smtp.gmail.com"
- smtpmail-smtp-service 587)
+;; (require 'smtpmail)
+
+;; (setq
+;;  message-send-mail-function 'smtpmail-send-it
+;;  smtpmail-stream-type 'starttls
+;;  smtpmail-default-smtp-server "smtp.gmail.com"
+;;  smtpmail-smtp-server "smtp.gmail.com"
+;;  smtpmail-smtp-service 587)
 
 (defvar my-mu4e-account-alist
-  '(("Gmail"
-    (mu4e-drafts-folder "/Gmail/[Gmail].Drafts")
-    (mu4e-sent-folder   "/Gmail/[Gmail].Sent Mail")
-    (mu4e-trash-folder  "/Gmail/[Gmail].Trash")
+  '(("gmail"
+    (mu4e-drafts-folder "/Gmail/bak.drafts")
+    (mu4e-sent-folder   "/Gmail/bak.sent")
+    (mu4e-trash-folder  "/Gmail/bak.trash")
     (user-mail-address "gab.bertoli@gmail.com")
     (message-signature-file "/home/drkg4b/.signature")
-    (smtpmail-default-smtp-server "smtp.gmail.com")
-    (smtpmail-local-domain "gmail.com")
-    (smtpmail-smtp-server "smtp.gmail.com")
-    (smtpmail-smtp-service 587))
-    ("Stockholm"
+    ;; (smtpmail-default-smtp-server "smtp.gmail.com")
+    ;; (smtpmail-local-domain "gmail.com")
+    ;; (smtpmail-smtp-server "smtp.gmail.com")
+    ;; (smtpmail-smtp-service 587)
+    )
+    ("stockholm"
      (mu4e-sent-folder "/Stockholm/INBOX.Sent")
      (mu4e-drafts-folder "/Stockholm/INBOX.Drafts")
      (mu4e-trash-folder "/Stockholm/INBOX.Trash")
      (user-mail-address "gabriele.bertoli@fysik.su.se")
      (message-signature-file "/home/drkg4b/.signature_stockholm")
-     (smtpmail-default-smtp-server "smtp.su.se")
-     (smtpmail-local-domain "fysik.su.se")
-     (smtpmail-smtp-server "smtp.su.se")
-     (smtpmail-stream-type starttls)
-     (smtpmail-smtp-service 587))
-    ("CERN"
+     ;; (smtpmail-default-smtp-server "smtp.su.se")
+     ;; (smtpmail-local-domain "fysik.su.se")
+     ;; (smtpmail-smtp-server "smtp.su.se")
+     ;; (smtpmail-stream-type starttls)
+     ;; (smtpmail-smtp-service 587)
+     )
+    ("cern"
      (mu4e-sent-folder "/CERN/Sent")
      (mu4e-drafts-folder "/CERN/Drafts")
      (mu4e-trash-folder "/CERN/Trash")
      (user-mail-address "gbertoli@cern.ch")
      (message-signature-file "/home/drkg4b/.signature_stockholm")
-     (smtpmail-default-smtp-server "smtp.cern.ch")
-     (smtpmail-local-domain "cern.ch")
-     (smtpmail-smtp-server "smtp.cern.ch")
-     (smtpmail-stream-type starttls)
-     (smtpmail-smtp-service 587))
-    ("Alice"
+     ;; (smtpmail-default-smtp-server "smtp.cern.ch")
+     ;; (smtpmail-local-domain "cern.ch")
+     ;; (smtpmail-smtp-server "smtp.cern.ch")
+     ;; (smtpmail-stream-type starttls)
+     ;; (smtpmail-smtp-service 587)
+     )
+    ("alice"
      (mu4e-sent-folder "/Alice/Posta inviata")
      (mu4e-drafts-folder "/Alice/Bozze")
      (mu4e-trash-folder "/Alice/Trash")
      (user-mail-address "drkg4b@alice.it")
      (message-signature-file "/home/drkg4b/.signature")
-     (smtpmail-default-smtp-server "out.alice.it")
-     (smtpmail-local-domain "alice.it")
-     (smtpmail-smtp-server "out.alice.it")
-     (smtpmail-stream-type nil)
-     (smtpmail-smtp-service 587))))
+     ;; (smtpmail-default-smtp-server "out.alice.it")
+     ;; (smtpmail-local-domain "alice.it")
+     ;; (smtpmail-smtp-server "out.alice.it")
+     ;; (smtpmail-stream-type nil)
+     ;; (smtpmail-smtp-service 587)
+     )))
 
 (provide 'mu4e-settings.el)
 ;;; mu4e-settings.el ends here
