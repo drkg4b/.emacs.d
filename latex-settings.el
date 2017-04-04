@@ -32,6 +32,12 @@
 ;; http://www.gnu.org/s/auctex/manual/reftex/AUCTeX_002dRefTeX-Interface.html
 (setq reftex-plug-into-AUCTeX t)
 
+;; So that RefTeX also recognizes \addbibresource. Note that you
+;; can't use $HOME in path for \addbibresource but that "~"
+;; works.
+(setq reftex-bibliography-commands '("bibliography" "nobibliography"
+				     "addbibresource"))
+
 ;; Split windows vertically
 (setq reftex-toc-split-windows-horizontally t)
 
