@@ -4,7 +4,7 @@
 
 ;; /This/ file (~init.el~) that you are reading
 ;; should be in this folder
-(add-to-list 'load-path "~/.emacs.d/")
+(add-to-list 'load-path "~/.emacs.d/lisp/")
 
 ;; Package Manager
 ;; See ~Cask~ file for its configuration
@@ -50,6 +50,9 @@
 (setq ido-enable-flex-matching t
       ido-use-virtual-buffers t)
 
+;; Change the location of the recent file list, added this because changing
+;; buffer was very slow
+(setq recentf-save-file (expand-file-name "recentf" "~/.emacs.d/"))
 
 ;; Project management
 (require 'ack-and-a-half)
@@ -61,6 +64,10 @@
 (require 'yasnippet)
 (yas-load-directory (concat root-dir "snippets"))
 (yas-global-mode 1)
+
+;; From package exec-path-from-shell, for more info:
+;; https://stackoverflow.com/questions/16676826/making-the-path-and-other-environment-variables-available-in-emacs
+(exec-path-from-shell-copy-env "PYTHONPATH")
 
 ;; Python editing
 (require 'elpy)
@@ -75,7 +82,7 @@
          user-emacs-directory)
         ((boundp 'user-init-directory)
          user-init-directory)
-        (t "~/.emacs.d/")))
+        (t "~/.emacs.d/lisp/")))
 
 (defun load-user-file (file)
   (interactive "f")
@@ -375,7 +382,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
- '(flycheck-c/c++-googlelint-executable "/usr/local/bin/cpplint.py"))
+ '(flycheck-c/c++-googlelint-executable "/usr/local/bin/cpplint.py")
+ '(epg-gpg-program "gpg2")
+ )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
