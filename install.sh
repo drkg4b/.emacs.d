@@ -23,3 +23,5 @@ cask install
 # Prerequisite: Install Python as per:
 # http://docs.python-guide.org/en/latest/#getting-started
 pip install --upgrade elpy flake8 rope jedi ipython
+
+sudo apt-get install ipython, mu4e, html2text
